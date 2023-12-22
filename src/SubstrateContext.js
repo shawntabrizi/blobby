@@ -1,4 +1,3 @@
-// SubstrateContext.js
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { ApiPromise, WsProvider } from '@polkadot/api';
 

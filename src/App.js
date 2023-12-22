@@ -1,25 +1,31 @@
 import './App.css';
 import { SubstrateProvider } from './SubstrateContext';
 import BlockNumberComponent from './BlockNumber';
+import { AccountProvider } from './AccountContext';
+import TransactionButton from './TransactionButton';
 
 function App() {
   return (
     <div className="App">
-      <SubstrateProvider providerUrl="wss://rpc.polkadot.io">
-        <div>
-          <h1>Your App</h1>
-          <BlockNumberComponent />
-          {/* Other components that need access to the Substrate API */}
-        </div>
-      </SubstrateProvider>
+      <AccountProvider>
+        <SubstrateProvider providerUrl="wss://rpc.polkadot.io">
+          <div>
+            <h1>Polkadot</h1>
+            <BlockNumberComponent />
+            <TransactionButton />
+            {/* Other components that need access to the Substrate API */}
+          </div>
+        </SubstrateProvider>
 
-      <SubstrateProvider providerUrl="wss://kusama-rpc.polkadot.io">
-        <div>
-          <h1>Your App</h1>
-          <BlockNumberComponent />
-          {/* Other components that need access to the Substrate API */}
-        </div>
-      </SubstrateProvider>
+        <SubstrateProvider providerUrl="wss://kusama-rpc.polkadot.io">
+          <div>
+            <h1>Kusama</h1>
+            <BlockNumberComponent />
+            <TransactionButton />
+            {/* Other components that need access to the Substrate API */}
+          </div>
+        </SubstrateProvider>
+      </AccountProvider>
     </div>
   );
 }

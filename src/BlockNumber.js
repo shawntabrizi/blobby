@@ -1,6 +1,5 @@
-// BlockNumberComponent.js
 import React, { useEffect, useState } from 'react';
-import { useSubstrate } from '../SubstrateContext';
+import { useSubstrate } from './SubstrateContext';
 
 const BlockNumberComponent = () => {
   const { api } = useSubstrate();
@@ -30,7 +29,6 @@ const BlockNumberComponent = () => {
 
   return (
     <div>
-      <h2>Block Number Component</h2>
       {blockNumber !== null ? (
         <p>Latest Block Number: {blockNumber}</p>
       ) : (
