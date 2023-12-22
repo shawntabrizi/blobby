@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { web3Accounts, web3Enable } from '@polkadot/extension-dapp';
-import Hero from './ui/Hero';
+import Card from './ui/Card';
 import { Dropdown } from 'react-bootstrap';
 
 const AccountContext = createContext();
@@ -37,9 +37,8 @@ const AccountProvider = ({ children }) => {
 
   return (
     <AccountContext.Provider value={{ selectedAccount, setAccount }}>
-      <Hero>
+      <Card title="Account Selector">
         <div>
-          <h2>Account Selector</h2>
           {accounts.length > 0 ? (
             <div>
               <Dropdown>
@@ -68,7 +67,7 @@ const AccountProvider = ({ children }) => {
             </p>
           )}
         </div>
-      </Hero>
+      </Card>
       {children}
     </AccountContext.Provider>
   );

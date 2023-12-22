@@ -11,6 +11,11 @@ const XcmTransferParaToRelay = ({ parachainId }) => {
   const [status, setStatus] = useState('');
   const [tokenInfo] = useState({ name: 'KSM', decimals: 12 });
 
+  // TODO: The code below is not correct for Para to Relay.
+  // It is copy paste from Relay to Para.
+  // Thus we disabled the functionality of this component.
+  const disabled = true;
+
   const handleSubmit = async () => {
     try {
       if (api && selectedAccount) {
@@ -107,22 +112,28 @@ const XcmTransferParaToRelay = ({ parachainId }) => {
   return (
     <div>
       <h5>XCM Reserve Transfer from {parachainId} to Relay</h5>
-      <label>
-        Amount:
-        <input
-          type="number"
-          value={amount}
-          onChange={(e) => setAmount(Number(e.target.value))}
-        />
-      </label>
-      <button onClick={handleSubmit}>Send to Relay</button>
-      {formattedAmount && (
-        <p>
-          (Sending {formattedAmount}
-          {tokenInfo.name})
-        </p>
+      {!disabled ? (
+        <>
+          <label>
+            Amount:
+            <input
+              type="number"
+              value={amount}
+              onChange={(e) => setAmount(Number(e.target.value))}
+            />
+          </label>
+          <button onClick={handleSubmit}>Send to Relay</button>
+          {formattedAmount && (
+            <p>
+              (Sending {formattedAmount}
+              {tokenInfo.name})
+            </p>
+          )}
+          {status && <p>Status: {status}</p>}
+        </>
+      ) : (
+        <p>Transfers back to the relay chain are disabled at the moment.</p>
       )}
-      {status && <p>Status: {status}</p>}
     </div>
   );
 };
