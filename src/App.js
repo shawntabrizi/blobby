@@ -1,35 +1,48 @@
-import './App.css';
 import { SubstrateProvider } from './SubstrateContext';
 import BlockNumberComponent from './BlockNumber';
 import { AccountProvider } from './AccountContext';
 import TransactionButton from './TransactionButton';
 import AccountBalance from './AccountBalance';
+import { Container, Row, Col } from 'react-bootstrap';
+import Card from './ui/Card';
+import BlobUpload from './BlobUpload';
+import XcmTransfer from './XcmTransfer';
 
 function App() {
   return (
-    <div className="App">
+    <Container>
       <AccountProvider>
-        <SubstrateProvider providerUrl="wss://rpc.polkadot.io">
-          <div>
-            <h1>Polkadot</h1>
-            <BlockNumberComponent />
-            <AccountBalance />
-            <TransactionButton />
-            {/* Other components that need access to the Substrate API */}
-          </div>
-        </SubstrateProvider>
+        <Row>
+          <Col>
+            <SubstrateProvider providerUrl="wss://kusama-rpc.polkadot.io">
+              <Card title="Kusama (ID: 0)">
+                <BlockNumberComponent />
+                <AccountBalance />
+                <TransactionButton />
 
-        <SubstrateProvider providerUrl="wss://kusama-rpc.polkadot.io">
-          <div>
-            <h1>Kusama</h1>
-            <BlockNumberComponent />
-            <AccountBalance />
-            <TransactionButton />
-            {/* Other components that need access to the Substrate API */}
-          </div>
-        </SubstrateProvider>
+                <XcmTransfer destinationChainId={3338} />
+                {/* Other components that need access to the Substrate API */}
+              </Card>
+            </SubstrateProvider>
+          </Col>
+          <SubstrateProvider providerUrl="wss://blob-kusama-rpc-bootnode-1.thrum.dev">
+            <Col>
+              <Card title="Blob (ID: 3338)">
+                <BlockNumberComponent />
+                <AccountBalance />
+                <TransactionButton />
+                {/* Other components that need access to the Substrate API */}
+              </Card>
+            </Col>
+            <Row>
+              <Card title="Upload">
+                <BlobUpload />
+              </Card>
+            </Row>
+          </SubstrateProvider>
+        </Row>
       </AccountProvider>
-    </div>
+    </Container>
   );
 }
 
