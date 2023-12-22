@@ -7,7 +7,7 @@ const AccountBalance = () => {
   const { api } = useSubstrate();
   const { selectedAccount } = useAccount();
   const [balance, setBalance] = useState(null);
-  const [tokenInfo, setTokenInfo] = useState({ name: 'KSM', decimals: 12 });
+  const [tokenInfo] = useState({ name: 'KSM', decimals: 12 });
 
   useEffect(() => {
     const fetchTokenInfo = async () => {
@@ -47,8 +47,6 @@ const AccountBalance = () => {
     balance !== null
       ? (parseFloat(balance) / 10 ** tokenInfo.decimals).toFixed(4)
       : 'Loading...';
-
-  console.log(tokenInfo.decimals[0]);
 
   return (
     <div>

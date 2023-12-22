@@ -1,22 +1,17 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { constructApiPromise } from '@substrate/asset-transfer-api';
+import { WsProvider, ApiPromise } from '@polkadot/api';
 
 const SubstrateContext = createContext();
 
 const SubstrateProvider = ({ children, providerUrl }) => {
   const [api, setApi] = useState(null);
-  const [specName, setSpecName] = useState(null);
-  const [safeXcmVersion, setSafeXcmVersion] = useState(null);
 
   useEffect(() => {
     const connectToSubstrate = async () => {
       try {
-        const { api, specName, safeXcmVersion } = await constructApiPromise(
-          providerUrl
-        );
-        setApi(api);
-        setSpecName(specName);
-        setSafeXcmVersion(safeXcmVersion);
+        const provider = new WsProvider(providerUrl);
+        const substrateApi = await ApiPromise.create({ provider });
+        setApi(substrateApi);
       } catch (error) {
         console.error('Error connecting to Substrate:', error);
       }
@@ -27,8 +22,6 @@ const SubstrateProvider = ({ children, providerUrl }) => {
 
   const contextValue = {
     api,
-    specName,
-    safeXcmVersion,
   };
 
   return (
