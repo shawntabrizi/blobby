@@ -3,11 +3,13 @@ import { useSubstrate } from './SubstrateContext';
 import { useAccount } from './AccountContext';
 import { web3FromAddress } from '@polkadot/extension-dapp';
 
-const XcmTransfer = ({ destinationChainId }) => {
+const XcmTransferParaToRelay = ({ parachainId }) => {
   const { api } = useSubstrate();
   const { selectedAccount } = useAccount();
-  const [amount, setAmount] = useState(0);
+  // Default is .1 KSM = 10^11
+  const [amount, setAmount] = useState(100000000000);
   const [status, setStatus] = useState('');
+  const [tokenInfo] = useState({ name: 'KSM', decimals: 12 });
 
   const handleSubmit = async () => {
     try {
@@ -18,7 +20,7 @@ const XcmTransfer = ({ destinationChainId }) => {
           V2: {
             parents: '0',
             interior: {
-              X2: [{ Parachain: destinationChainId }],
+              X2: [{ Parachain: parachainId }],
             },
           },
         });
@@ -51,7 +53,7 @@ const XcmTransfer = ({ destinationChainId }) => {
                 },
               },
               fun: {
-                Fungible: '100000000000',
+                Fungible: amount,
               },
             },
           ],
@@ -96,9 +98,15 @@ const XcmTransfer = ({ destinationChainId }) => {
     }
   };
 
+  // Format the balance with correct decimal places
+  const formattedAmount =
+    amount !== null
+      ? (parseFloat(amount) / 10 ** tokenInfo.decimals).toFixed(4)
+      : 'Loading...';
+
   return (
     <div>
-      <h5>XCM Reserve Transfer to {destinationChainId}</h5>
+      <h5>XCM Reserve Transfer from {parachainId} to Relay</h5>
       <label>
         Amount:
         <input
@@ -107,10 +115,16 @@ const XcmTransfer = ({ destinationChainId }) => {
           onChange={(e) => setAmount(Number(e.target.value))}
         />
       </label>
-      <button onClick={handleSubmit}>Submit XCM Transfer</button>
+      <button onClick={handleSubmit}>Send to Relay</button>
+      {formattedAmount && (
+        <p>
+          (Sending {formattedAmount}
+          {tokenInfo.name})
+        </p>
+      )}
       {status && <p>Status: {status}</p>}
     </div>
   );
 };
 
-export default XcmTransfer;
+export default XcmTransferParaToRelay;

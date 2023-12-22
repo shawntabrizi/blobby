@@ -13,6 +13,7 @@ const AccountBalance = () => {
     const fetchTokenInfo = async () => {
       try {
         if (api) {
+          // TODO: make this work, not sure why we can't work with chain info correctly.
           //   const chainInfo = await api.registry.getChainProperties();
           //   setTokenInfo({
           //     name: chainInfo.tokenSymbol.toString(),
@@ -50,7 +51,7 @@ const AccountBalance = () => {
 
   return (
     <div>
-      <h2>Account Balance</h2>
+      <h5>Account Balance</h5>
       {selectedAccount ? (
         <p>
           <strong>Address:</strong> {selectedAccount.address}

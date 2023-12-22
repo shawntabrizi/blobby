@@ -1,12 +1,12 @@
 import { SubstrateProvider } from './SubstrateContext';
 import BlockNumberComponent from './BlockNumber';
 import { AccountProvider } from './AccountContext';
-import TransactionButton from './TransactionButton';
 import AccountBalance from './AccountBalance';
 import { Container, Row, Col } from 'react-bootstrap';
 import Card from './ui/Card';
 import BlobUpload from './BlobUpload';
-import XcmTransfer from './XcmTransfer';
+import XcmTransferRelayToPara from './XcmTransferRelayToPara';
+import XcmTransferParaToRelay from './XcmTransferParaToRelay';
 
 function App() {
   return (
@@ -18,10 +18,8 @@ function App() {
               <Card title="Kusama (ID: 0)">
                 <BlockNumberComponent />
                 <AccountBalance />
-                <TransactionButton />
-
-                <XcmTransfer destinationChainId={3338} />
-                {/* Other components that need access to the Substrate API */}
+                <XcmTransferRelayToPara parachainId={3338} />
+                {/* Other components that need access to Kusama */}
               </Card>
             </SubstrateProvider>
           </Col>
@@ -30,8 +28,8 @@ function App() {
               <Card title="Blob (ID: 3338)">
                 <BlockNumberComponent />
                 <AccountBalance />
-                <TransactionButton />
-                {/* Other components that need access to the Substrate API */}
+                <XcmTransferParaToRelay parachainId={3338} />
+                {/* Other components that need access to Blobs */}
               </Card>
             </Col>
             <Row>
