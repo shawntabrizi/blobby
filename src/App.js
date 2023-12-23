@@ -22,7 +22,7 @@ function App() {
       <AccountProvider>
         <Row>
           <SubstrateProvider providerUrl="wss://kusama-rpc.polkadot.io">
-            <Col>
+            <Col lg={6}>
               <Card title="Kusama (ID: 0)">
                 <BlockNumberComponent />
                 <AccountBalance />
@@ -32,7 +32,7 @@ function App() {
             </Col>
           </SubstrateProvider>
           <SubstrateProvider providerUrl="wss://blob-kusama-rpc-bootnode-1.thrum.dev">
-            <Col>
+            <Col lg={6}>
               <Card title="Blob (ID: 3338)">
                 <BlockNumberComponent />
                 <AccountBalance />
@@ -40,7 +40,7 @@ function App() {
                 {/* Other components that need access to Blobs */}
               </Card>
             </Col>
-            <Col>
+            <Col lg={12}>
               <Card title="Upload">
                 <BlobUpload />
               </Card>
