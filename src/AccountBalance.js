@@ -29,10 +29,15 @@ const AccountBalance = () => {
       try {
         if (api && selectedAccount) {
           const { address } = selectedAccount;
-          const {
-            data: { free: accountBalance },
-          } = await api.query.system.account(address);
-          setBalance(accountBalance.toString());
+          // Subscribe to balance changes
+          const unsubscribe = await api.query.system.account(
+            address,
+            ({ data: { free } }) => {
+              setBalance(free.toString());
+            }
+          );
+
+          return () => unsubscribe();
         }
       } catch (error) {
         console.error('Error fetching account balance:', error);
