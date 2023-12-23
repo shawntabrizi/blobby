@@ -25,7 +25,7 @@ const XcmTransferParaToRelay = ({ parachainId }) => {
           V2: {
             parents: '0',
             interior: {
-              X2: [{ Parachain: parachainId }],
+              X1: { Parachain: parachainId },
             },
           },
         });
