@@ -48,7 +48,7 @@ const XcmTransferRelayToPara = ({ parachainId }) => {
                 Concrete: {
                   parents: 0,
                   interior: {
-                    Here: '',
+                    Here: null,
                   },
                 },
               },
@@ -59,7 +59,7 @@ const XcmTransferRelayToPara = ({ parachainId }) => {
           ],
         });
 
-        const fee_asset_item = '0';
+        const fee_asset_item = 0;
 
         const weight_limit = 'Unlimited';
 
