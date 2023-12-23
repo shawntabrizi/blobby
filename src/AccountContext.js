@@ -12,7 +12,7 @@ const AccountProvider = ({ children }) => {
   useEffect(() => {
     const fetchAccounts = async () => {
       try {
-        await web3Enable('my cool dapp');
+        await web3Enable('blobby');
         const injectedAccounts = await web3Accounts();
         setAccounts(injectedAccounts);
         if (injectedAccounts.length > 0 && !selectedAccount) {
