@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useSubstrate } from './SubstrateContext';
 import { useAccount } from './AccountContext';
 import { web3FromAddress } from '@polkadot/extension-dapp';
-import { Form, InputGroup } from 'react-bootstrap';
+import { Button, Form, InputGroup } from 'react-bootstrap';
 
 const BlobUpload = () => {
   const { api } = useSubstrate();
@@ -92,12 +92,13 @@ const BlobUpload = () => {
             />
           </InputGroup>
           <br />
-          <br />
-          <h5>File Upload</h5>
-          <input type="file" onChange={handleFileChange} />
-          <button onClick={handleSubmit} disabled={!blob}>
-            Submit Blob
-          </button>
+          <h5>Select Blob</h5>
+          <InputGroup>
+            <Form.Control type="file" onChange={handleFileChange} />
+            <Button onClick={handleSubmit} disabled={!blob}>
+              Submit Blob
+            </Button>
+          </InputGroup>
         </>
       ) : (
         <p>No account selected.</p>
