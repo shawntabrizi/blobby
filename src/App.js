@@ -19,7 +19,7 @@ function App() {
           <a href="https://github.com/shawntabrizi/blobby">Github</a>)
         </p>
       </Hero>
-      <AccountProvider>
+      <AccountProvider appName="blobby">
         <Row>
           <SubstrateProvider providerUrl="wss://kusama-rpc.polkadot.io">
             <Col lg={6}>
