@@ -10,5 +10,4 @@ A simple UI to interact with [Kusama's blob chain](https://github.com/thrumdev/b
 
 Created with:
 
-- [Create React App](https://github.com/facebook/create-react-app).
-- [Polkadot JS](https://polkadot.js.org/)
+- [Polkadot React Template](https://github.com/shawntabrizi/polkadot-react-template)
