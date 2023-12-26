@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useSubstrate } from './SubstrateContext';
 import { useAccount } from './AccountContext';
 import { web3FromAddress } from '@polkadot/extension-dapp';
+import { Form, InputGroup } from 'react-bootstrap';
 
 const BlobUpload = () => {
   const { api } = useSubstrate();
@@ -81,14 +82,15 @@ const BlobUpload = () => {
       {selectedAccount ? (
         <>
           <h5>Select Namespace</h5>
-          <label>
-            Namespace:
-            <input
+          <InputGroup>
+            <InputGroup.Text>Namespace</InputGroup.Text>
+            <Form.Control
               type="number"
+              min="0"
               value={namespace}
               onChange={(e) => setNamespace(Number(e.target.value))}
             />
-          </label>
+          </InputGroup>
           <br />
           <br />
           <h5>File Upload</h5>

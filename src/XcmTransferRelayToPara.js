@@ -114,6 +114,7 @@ const XcmTransferRelayToPara = ({ parachainId }) => {
             <InputGroup.Text>Raw Amount</InputGroup.Text>
             <Form.Control
               type="number"
+              min="0"
               value={amount}
               onChange={(e) => setAmount(Number(e.target.value))}
             />
