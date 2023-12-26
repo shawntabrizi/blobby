@@ -1,5 +1,5 @@
 import { SubstrateProvider } from './SubstrateContext';
-import BlockNumberComponent from './BlockNumber';
+import BlockNumber from './BlockNumber';
 import { AccountProvider } from './AccountContext';
 import AccountBalance from './AccountBalance';
 import { Container, Row, Col } from 'react-bootstrap';
@@ -24,20 +24,18 @@ function App() {
           <SubstrateProvider providerUrl="wss://kusama-rpc.polkadot.io">
             <Col lg={6}>
               <Card title="Kusama (ID: 0)">
-                <BlockNumberComponent />
+                <BlockNumber />
                 <AccountBalance />
                 <XcmTransferRelayToPara parachainId={3338} />
-                {/* Other components that need access to Kusama */}
               </Card>
             </Col>
           </SubstrateProvider>
           <SubstrateProvider providerUrl="wss://blob-kusama-rpc-bootnode-1.thrum.dev">
             <Col lg={6}>
               <Card title="Blob (ID: 3338)">
-                <BlockNumberComponent />
+                <BlockNumber />
                 <AccountBalance />
                 <XcmTransferParaToRelay parachainId={3338} />
-                {/* Other components that need access to Blobs */}
               </Card>
             </Col>
             <Col lg={12}>
