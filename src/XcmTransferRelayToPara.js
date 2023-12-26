@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useSubstrate } from './SubstrateContext';
 import { useAccount } from './AccountContext';
 import { web3FromAddress } from '@polkadot/extension-dapp';
+import { Button, InputGroup, Form } from 'react-bootstrap';
 
 const XcmTransferRelayToPara = ({ parachainId }) => {
   const { api } = useSubstrate();
@@ -109,19 +110,19 @@ const XcmTransferRelayToPara = ({ parachainId }) => {
       <h5>XCM Reserve Transfer from Relay to {parachainId}</h5>
       {selectedAccount ? (
         <>
-          <label>
-            Amount:
-            <input
+          <InputGroup>
+            <InputGroup.Text>Raw Amount</InputGroup.Text>
+            <Form.Control
               type="number"
+              min="0"
               value={amount}
               onChange={(e) => setAmount(Number(e.target.value))}
             />
-          </label>
-          <button onClick={handleSubmit}>Send to {parachainId}</button>
+            <Button onClick={handleSubmit}>Send to {parachainId}</Button>
+          </InputGroup>
           {formattedAmount && (
             <p>
-              (Sending {formattedAmount}
-              {tokenInfo.name})
+              (Sending {formattedAmount} {tokenInfo.name})
             </p>
           )}
         </>
