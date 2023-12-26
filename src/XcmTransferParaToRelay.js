@@ -123,8 +123,7 @@ const XcmTransferParaToRelay = ({ parachainId }) => {
           </InputGroup>
           {formattedAmount && (
             <p>
-              (Sending {formattedAmount}
-              {tokenInfo.name})
+              (Sending {formattedAmount} {tokenInfo.name})
             </p>
           )}
         </>
