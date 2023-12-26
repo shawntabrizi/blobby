@@ -41,7 +41,7 @@ function App() {
               </Card>
             </Col>
             <Col lg={12}>
-              <Card title="Upload">
+              <Card title="Upload Blob">
                 <BlobUpload />
               </Card>
             </Col>

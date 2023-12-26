@@ -78,22 +78,28 @@ const BlobUpload = () => {
 
   return (
     <div>
-      <h5>Select Namespace</h5>
-      <label>
-        Namespace:
-        <input
-          type="number"
-          value={namespace}
-          onChange={(e) => setNamespace(Number(e.target.value))}
-        />
-      </label>
-      <br />
-      <br />
-      <h5>File Upload</h5>
-      <input type="file" onChange={handleFileChange} />
-      <button onClick={handleSubmit} disabled={!blob}>
-        Submit Blob
-      </button>
+      {selectedAccount ? (
+        <>
+          <h5>Select Namespace</h5>
+          <label>
+            Namespace:
+            <input
+              type="number"
+              value={namespace}
+              onChange={(e) => setNamespace(Number(e.target.value))}
+            />
+          </label>
+          <br />
+          <br />
+          <h5>File Upload</h5>
+          <input type="file" onChange={handleFileChange} />
+          <button onClick={handleSubmit} disabled={!blob}>
+            Submit Blob
+          </button>
+        </>
+      ) : (
+        <p>No account selected.</p>
+      )}
       {status && <p>Status: {status}</p>}
     </div>
   );
