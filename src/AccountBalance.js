@@ -6,62 +6,71 @@ import { useAccount } from './AccountContext';
 const AccountBalance = () => {
   const { api } = useSubstrate();
   const { selectedAccount } = useAccount();
-  const [balance, setBalance] = useState(null);
-  const [tokenInfo] = useState({ name: 'KSM', decimals: 12 });
+  const [balances, setBalances] = useState(null);
+  const [tokenInfo, setTokenInfo] = useState({ name: 'KSM', decimals: 12 });
 
   useEffect(() => {
     const fetchTokenInfo = async () => {
       try {
         if (api) {
-          // TODO: make this work, not sure why we can't work with chain info correctly.
-          //   const chainInfo = await api.registry.getChainProperties();
-          //   setTokenInfo({
-          //     name: chainInfo.tokenSymbol.toString(),
-          //     decimals: chainInfo.tokenDecimals,
-          //   });
+          const chainInfo = await api.registry.getChainProperties();
+          setTokenInfo({
+            name: chainInfo.tokenSymbol.value[0].toString(),
+            decimals: chainInfo.tokenDecimals.value[0].toNumber(),
+          });
         }
       } catch (error) {
         console.error('Error fetching token information:', error);
       }
     };
 
-    const fetchBalance = async () => {
+    const fetchBalances = async () => {
       try {
         if (api && selectedAccount) {
           const { address } = selectedAccount;
           // Subscribe to balance changes
-          const unsubscribe = await api.query.system.account(
+          const unsubscribe = await api.derive.balances.all(
             address,
-            ({ data: { free } }) => {
-              setBalance(free.toString());
+            (result) => {
+              setBalances(result);
             }
           );
 
           return () => unsubscribe();
         }
       } catch (error) {
-        console.error('Error fetching account balance:', error);
+        console.error('Error fetching account balances:', error);
       }
     };
 
     fetchTokenInfo();
-    fetchBalance();
+    fetchBalances();
   }, [api, selectedAccount]);
 
-  // Format the balance with correct decimal places
-  const formattedBalance =
-    balance !== null
-      ? (parseFloat(balance) / 10 ** tokenInfo.decimals).toFixed(4)
-      : 'Loading...';
+  const formattedBalance = (value) =>
+    value !== null
+      ? (parseFloat(value) / 10 ** tokenInfo.decimals).toFixed(4)
+      : 'Loading Balance...';
+
+  const formattedAddress = () => {
+    if (selectedAccount !== null && selectedAccount.address !== null)
+      if (api !== null) {
+        // Format the address with proper SS58
+        return api.createType('Address', selectedAccount.address).toString();
+      }
+
+    return 'Loading Address...';
+  };
 
   return (
     <div>
       <h5>Account Balance</h5>
       {selectedAccount ? (
         <p>
-          <strong>Address:</strong> {selectedAccount.address}
+          <strong>Address:</strong> {formattedAddress()}
           <br />
-          <strong>Balance:</strong> {formattedBalance} {tokenInfo.name}
+          <strong>Transferable:</strong>{' '}
+          {formattedBalance(balances?.availableBalance)} {tokenInfo.name}
         </p>
       ) : (
         <p>No account selected.</p>
