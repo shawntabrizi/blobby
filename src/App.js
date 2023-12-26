@@ -16,7 +16,7 @@ function App() {
         <h2>blobby</h2>
         <p>
           your friendly neighborhood blob ui (
-          <a href="https://github.com/shawntabrizi/blobby">Github</a>)
+          <a href="https://github.com/shawntabrizi/blobby">GitHub</a>)
         </p>
       </Hero>
       <AccountProvider appName="blobby">
