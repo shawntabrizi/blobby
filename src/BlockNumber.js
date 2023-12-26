@@ -1,30 +1,30 @@
 import React, { useEffect, useState } from 'react';
 import { useSubstrate } from './SubstrateContext';
 
-const BlockNumberComponent = () => {
+const BlockNumber = () => {
   const { api } = useSubstrate();
   const [blockNumber, setBlockNumber] = useState(null);
 
   useEffect(() => {
-    // Fetch the latest block number and subscribe to new blocks
-    const fetchAndSubscribe = async () => {
+    // Subscribe to new blocks
+    const subscribeNewHeads = async () => {
       try {
         if (api) {
-          // Fetch initial block number
-          const blockHeader = await api.rpc.chain.getHeader();
-          setBlockNumber(blockHeader.number.toNumber());
-
           // Subscribe to new blocks
-          api.rpc.chain.subscribeNewHeads((header) => {
-            setBlockNumber(header.number.toNumber());
-          });
+          const unsubscribe = await api.rpc.chain.subscribeNewHeads(
+            (header) => {
+              setBlockNumber(header.number.toNumber());
+            }
+          );
+
+          return () => unsubscribe();
         }
       } catch (error) {
-        console.error('Error fetching and subscribing to block number:', error);
+        console.error('Error subscribing to block number:', error);
       }
     };
 
-    fetchAndSubscribe();
+    subscribeNewHeads();
   }, [api]);
 
   return (
@@ -38,4 +38,4 @@ const BlockNumberComponent = () => {
   );
 };
 
-export default BlockNumberComponent;
+export default BlockNumber;

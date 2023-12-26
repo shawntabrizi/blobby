@@ -109,20 +109,26 @@ const XcmTransferParaToRelay = ({ parachainId }) => {
   return (
     <div>
       <h5>XCM Reserve Transfer from {parachainId} to Relay</h5>
-      <label>
-        Amount:
-        <input
-          type="number"
-          value={amount}
-          onChange={(e) => setAmount(Number(e.target.value))}
-        />
-      </label>
-      <button onClick={handleSubmit}>Send to Relay</button>
-      {formattedAmount && (
-        <p>
-          (Sending {formattedAmount}
-          {tokenInfo.name})
-        </p>
+      {selectedAccount ? (
+        <>
+          <label>
+            Amount:
+            <input
+              type="number"
+              value={amount}
+              onChange={(e) => setAmount(Number(e.target.value))}
+            />
+          </label>
+          <button onClick={handleSubmit}>Send to Relay</button>
+          {formattedAmount && (
+            <p>
+              (Sending {formattedAmount}
+              {tokenInfo.name})
+            </p>
+          )}
+        </>
+      ) : (
+        <p>No account selected.</p>
       )}
       {status && <p>Status: {status}</p>}
     </div>
